@@ -5,7 +5,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <header>hello world</header>
+        <header>react version is {React.version}</header>
       </div>
     );
   }
