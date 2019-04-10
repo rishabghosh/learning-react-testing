@@ -13,6 +13,12 @@ class App extends Component {
     });
   }
 
+  _handleDecrement() {
+    this.setState(prevState => {
+      return { count: prevState.count - 1 };
+    });
+  }
+
   render() {
     return (
       //the name of the attribut could be anything
@@ -26,6 +32,12 @@ class App extends Component {
           onClick={this._handleIncrement.bind(this)}
         >
           Increment
+        </button>
+        <button
+          data-test="decrement-button"
+          onClick={this._handleDecrement.bind(this)}
+        >
+          Decrement
         </button>
       </div>
     );
