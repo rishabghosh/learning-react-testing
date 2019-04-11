@@ -1,19 +1,33 @@
 import React, { Component, useState, useEffect } from "react";
 import "./styles/App.css";
 
+const EMPTY_STRING = "";
+const ERROR_MESSAGE = "Count cant be negentive";
+
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { count: 0 };
+    this.state = { count: 0, error: EMPTY_STRING };
   }
 
   _handleIncrement() {
+    if (this.state.error) {
+      this.setState(prevState => {
+        return { error: EMPTY_STRING };
+      });
+    }
     this.setState(prevState => {
       return { count: prevState.count + 1 };
     });
   }
 
   _handleDecrement() {
+    if (this.state.count <= 0) {
+      this.setState(prevState => {
+        return { error: ERROR_MESSAGE };
+      });
+      return;
+    }
     this.setState(prevState => {
       return { count: prevState.count - 1 };
     });
@@ -26,6 +40,7 @@ class App extends Component {
       <div className="App" data-test="component-app">
         <header data-test="header">react version is {React.version}</header>
         <h1 data-test="counter-display">The Count Is {this.state.count}</h1>
+        <div data-test="error-display">{this.state.error}</div>
         <h4 custom-test="counter-display">custom attribute works</h4>
         <button
           data-test="increment-button"

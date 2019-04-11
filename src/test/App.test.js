@@ -72,3 +72,47 @@ test("should derement the count on click", () => {
   const counterDisplay = wrapper.find("[data-test='counter-display']");
   expect(counterDisplay.text()).toContain(count - 1);
 });
+
+test("counter should never go below zero", ()=>{
+  const count = 1;
+  const wrapper = shallow(<App />);
+  wrapper.setState({ count });
+
+  const button = wrapper.find("[data-test='decrement-button']");
+  button.simulate("click");
+  button.simulate("click");
+  wrapper.update();
+
+  const counterDisplay = wrapper.find("[data-test='counter-display']");
+  expect(counterDisplay.text()).toContain(count - 1);
+});
+
+test("should display a error message when counter is decremented below 0",()=>{
+  const count = 0;
+  const wrapper = shallow(<App />);
+  wrapper.setState({ count });
+
+  const button = wrapper.find("[data-test='decrement-button']");
+  button.simulate("click");
+  wrapper.update();
+
+  const counterDisplay = wrapper.find("[data-test='error-display']");
+  expect(counterDisplay.text()).toBeTruthy()
+});
+
+test("should not display error when increment button is clicked",()=>{
+  const count = 0;
+  const wrapper = shallow(<App />);
+  wrapper.setState({ count });
+
+  const decrementButton = wrapper.find("[data-test='decrement-button']");
+  decrementButton.simulate("click");
+  wrapper.update();
+
+  const incrementButton = wrapper.find("[data-test='increment-button']");
+  incrementButton.simulate("click");
+  wrapper.update();
+
+  const counterDisplay = wrapper.find("[data-test='error-display']");
+  expect(counterDisplay.text()).toBeFalsy()
+})
