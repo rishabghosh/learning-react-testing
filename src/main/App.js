@@ -41,7 +41,6 @@ class App extends Component {
         <header data-test="header">react version is {React.version}</header>
         <h1 data-test="counter-display">The Count Is {this.state.count}</h1>
         <div data-test="error-display">{this.state.error}</div>
-        <h4 custom-test="counter-display">custom attribute works</h4>
         <button
           data-test="increment-button"
           onClick={this._handleIncrement.bind(this)}
